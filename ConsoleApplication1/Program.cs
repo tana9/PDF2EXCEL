@@ -1,4 +1,7 @@
-﻿using System.Data.SqlTypes;
+﻿using System;
+using System.Data.SqlTypes;
+using System.IO;
+using System.Xml;
 using NetOffice.WordApi.Enums;
 
 namespace ConsoleApplication1
@@ -8,12 +11,14 @@ namespace ConsoleApplication1
         public static void Main(string[] args)
         {
             var path = @"C:\Users\t-tan\Desktop\Book1.pdf";
-            var excelpath = @"C:\Users\t-tan\Desktop\Book2.xlsx";
+            var outDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "excel");
+            Directory.CreateDirectory(outDir);
+            var excelPath = Path.Combine(outDir, Path.GetFileNameWithoutExtension(path) + ".xlsx");
             using (var word = new WordClipboardCopy())
             using (var excel = new ExcelClipboardPaste())
             {
                 word.Copy(path);
-                excel.Paste(excelpath);
+                excel.Paste(excelPath);
             }
         }
     }

@@ -21,6 +21,7 @@ namespace ConsoleApplication1
         {
             var word = _wordApp.Documents.OpenNoRepairDialog(path);
             word.Select();
+            _wordApp.Selection.Copy();
             word.Close(false);
         }
 
